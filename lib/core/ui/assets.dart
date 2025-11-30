@@ -20,5 +20,9 @@ class Assets {
   static const String onboardingWheel = 'assets/images/on2.png';
   static const String onboardingTrophy = 'assets/images/on3.png';
 
+  // Onboarding Assets
+  static const String rightBg = 'assets/images/leftBg.png';
+  static const String leftBg = 'assets/images/rightBg.png';
+
   Assets._();
 }

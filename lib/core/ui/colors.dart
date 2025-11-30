@@ -73,6 +73,7 @@ class AppColors {
 
   static Color errorColor = const Color(0XFFB30F11);
   static Color colorRed = const Color(0XFFD02C2C);
+  static Color red100 = const Color(0XFFFE6C17);
   static Color colorRedLight = const Color(0XFFFDEDED);
   static Color colorRedLight2 = const Color(0XFFFFF7F7);
 
