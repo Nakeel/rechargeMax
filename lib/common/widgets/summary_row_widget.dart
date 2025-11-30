@@ -50,7 +50,7 @@ class SummaryRow extends StatelessWidget {
       fontWeight: isBold ? FontWeight.w700 : FontWeight.w400,
       fontSize:isBold ? 16: 14,
       color:  AppColors.black100,
-      fontFamily: isCurrency ? AppTheme.roboto : AppTheme.geist
+      fontFamily: isCurrency ? AppTheme.roboto : AppTheme.opensans
     );
 
     return Padding(

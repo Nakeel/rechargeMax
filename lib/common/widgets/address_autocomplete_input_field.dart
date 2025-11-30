@@ -261,7 +261,7 @@ class _AddressAutocompleteWidgetState extends State<AddressAutocompleteWidget> {
                       color: AppColors.colorBlack,
                       fontSize: widget.labelSize ?? 12.sp,
                       fontWeight: FontWeight.w400,
-                      fontFamily: AppTheme.geist,
+                      fontFamily: AppTheme.opensans,
                     ),
                     children: widget.isRequired
                         ? [
@@ -297,7 +297,7 @@ class _AddressAutocompleteWidgetState extends State<AddressAutocompleteWidget> {
                 style: TextStyle(
                   color: AppColors.colorBlack,
                   fontSize: 14.sp,
-                  fontFamily: AppTheme.geist,
+                  fontFamily: AppTheme.opensans,
                   fontWeight: FontWeight.w400,
                   height: 1.9.h,
                 ),
@@ -306,7 +306,7 @@ class _AddressAutocompleteWidgetState extends State<AddressAutocompleteWidget> {
                   errorMaxLines: 3,
                   errorStyle: TextStyle(
                     color: Theme.of(context).colorScheme.error,
-                    fontFamily: AppTheme.geist,
+                    fontFamily: AppTheme.opensans,
                     fontWeight: FontWeight.bold,
                     fontSize: 12.sp,
                   ),
@@ -319,7 +319,7 @@ class _AddressAutocompleteWidgetState extends State<AddressAutocompleteWidget> {
                     color: AppColors.hintGrey,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w400,
-                    fontFamily: AppTheme.geist,
+                    fontFamily: AppTheme.opensans,
                   ),
                   border: _controller.text.isEmpty
                       ? OutlineInputBorder(

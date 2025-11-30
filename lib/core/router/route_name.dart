@@ -1,12 +1,17 @@
 class AppRoutes {
   static const String indexSplash = '/';
+  static const String onboardingRoute = '/onboarding';
   static const String onboardingPage = '/onboardingPage';
   static const String onboarding2Page = '/onboarding2Page';
   static const String legacyHomePage = '/legacyHomePage';
   static const String legacyHome = 'legacyHome';
 
   static const String openRoute = '/open';
+  static const String authRoute = '/auth';
   static const String signinRoute = '/signin';
+  static const String homeRoute = '/home';
+  static const String rechargeRoute = '/recharge';
+  static const String transactionsRoute = '/transactions';
   static const String returnSigninRoute = '/return-signin';
   static const String signupRoute = '/signup';
   static const String otpVerificationRoute = '/otp-verification';

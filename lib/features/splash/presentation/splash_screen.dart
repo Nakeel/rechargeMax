@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recharge_max/core/constants/app_string_constants.dart';
 import 'package:recharge_max/core/router/route_name.dart';
 import 'package:recharge_max/core/storage/cache.dart';
+import 'package:recharge_max/core/ui/assets.dart';
+import 'package:recharge_max/core/ui/colors.dart';
 import 'package:recharge_max/core/utils/app_logger.dart';
 
 class MainSplashScreen extends StatefulWidget {
@@ -14,20 +15,48 @@ class MainSplashScreen extends StatefulWidget {
   State<MainSplashScreen> createState() => _MainSplashScreenState();
 }
 
-class _MainSplashScreenState extends State<MainSplashScreen> {
+class _MainSplashScreenState extends State<MainSplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
+  late Animation<double> _scaleAnimation;
+
   @override
   void initState() {
     super.initState();
 
+    // Initialize animations
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 1500),
+      vsync: this,
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
+    );
+
+    _animationController.forward();
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (mounted) {
-        await getNextRoute();
+        // Wait for animation to complete before navigating
+        await Future.delayed(const Duration(milliseconds: 2500));
+        if (mounted) {
+          await getNextRoute();
+        }
       }
     });
   }
 
-
-
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   Future<void> getNextRoute() async {
     try {
@@ -35,57 +64,52 @@ class _MainSplashScreenState extends State<MainSplashScreen> {
       AppLogger.info('Routing - Has opened $hasOpened');
 
       if (!hasOpened) {
-        context.go(AppRoutes.spinWheelRoute);
+        if (mounted) {
+          context.go(AppRoutes.onboardingRoute);
+        }
         return;
       }
 
       final hasLogin = await CacheStorage.readData(AppConstants.hasLogin) ?? false;
       AppLogger.info('Routing - hasLogin $hasLogin');
 
-      // if (hasLogin) {
-      //
-      //   final keepLogin = await CacheStorage.readData(AppConstants.keepLogin) ?? false;
-      //   if(keepLogin) {
-      //     context.read<AuthBloc>().add(RefreshTokenEvent());
-      //   }else{
-      //     context.go(AppRoutes.signinRoute);
-      //   }
-      // } else {
-      //   context.go(AppRoutes.signupRoute);
-      // }
+      if (mounted) {
+        context.go(AppRoutes.spinWheelRoute);
+      }
     } catch (e) {
-      context.go(AppRoutes.spinWheelRoute);
+      AppLogger.error('Error in getNextRoute: $e');
+      if (mounted) {
+        context.go(AppRoutes.onboardingRoute);
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return
-      // BlocListener<AuthBloc, AuthState>(
-      // listenWhen: (prev, curr) =>
-      // prev.refreshTokenStatus != curr.refreshTokenStatus,
-      // listener: (context, state) {
-      //   if (state.refreshTokenStatus == ResponseStatus.success) {
-      //     /// ✅ Token refreshed, go home
-      //     context.go(AppRoutes.newHomeRoute);
-      //   } else if (state.refreshTokenStatus == ResponseStatus.failure) {
-      //     /// ❌ Refresh failed, send to login
-      //     context.go(AppRoutes.returnSigninRoute);
-      //   }
-      // },
-      // child:
-      const Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              CircularProgressIndicator(),
-            ],
+    return Scaffold(
+      backgroundColor: AppColors.colorPrimary,
+      body: Stack(
+        children: [
+          Image.asset(
+            Assets.logoBg,
+            fit: BoxFit.cover,
           ),
-        ),
-      );
-    // );
+          Center(
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: ScaleTransition(
+                scale: _scaleAnimation,
+                child: Image.asset(
+                  Assets.appLogo,
+                  height: 100,
+                  width: 100,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 

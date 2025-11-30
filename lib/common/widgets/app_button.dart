@@ -32,16 +32,16 @@ class AppButton {
                 (disabled ? AppColors.disabledColor : AppColors.colorPrimary),
             side: BorderSide.none,
             shape: RoundedRectangleBorder(
-              borderRadius: borderRadius ?? BorderRadius.circular(8),
+              borderRadius: borderRadius ?? BorderRadius.circular(12),
             ),
             minimumSize: size ?? Size(0.w, 48.h),
             textStyle: TextStyle(
               color: disabled
                   ? AppColors.colorGrey
                   : (textColor ?? AppColors.colorWhite),
-              fontSize: fontSize ?? 14.sp,
-              fontFamily: AppTheme.geist,
-              fontWeight: fontWeight ?? FontWeight.w400,
+              fontSize: fontSize ?? 16.sp,
+              fontFamily: AppTheme.opensans,
+              fontWeight: fontWeight ?? FontWeight.w600,
             ),
             // foregroundColor: textColor ?? AppColors.colorWhite,
           ),
@@ -74,11 +74,11 @@ class AppButton {
                         text: text,
                         textAlign: TextAlign.center,
                         color: disabled
-                            ? AppColors.colorGrey
+                            ? (textColor ?? AppColors.colorPrimary).withOpacity(.4)
                             : (textColor ?? AppColors.colorWhite),
-                        fontSize: fontSize ?? 14.sp,
+                        fontSize: fontSize ?? 16.sp,
 
-                        fontWeight: fontWeight ?? FontWeight.w500,
+                        fontWeight: fontWeight ?? FontWeight.w600,
                         // style: Theme.of(context).textTheme.titleLarge,
                       ),
                       if (suffixIcon != null) ...[
@@ -117,7 +117,7 @@ class AppButton {
                     : Theme.of(context).primaryColor),
             side: BorderSide.none,
             shape: RoundedRectangleBorder(
-              borderRadius: borderRadius ?? BorderRadius.circular(4),
+              borderRadius: borderRadius ?? BorderRadius.circular(12),
             ),
             minimumSize: size ?? Size(100.w, 10.h),
             textStyle: TextStyle(
@@ -125,7 +125,7 @@ class AppButton {
                   ? const Color(0xff868685)
                   : (textColor ?? AppColors.colorWhite),
               fontSize: fontSize ?? 10.sp,
-              fontFamily: AppTheme.geist,
+              fontFamily: AppTheme.opensans,
               fontWeight: fontWeight ?? FontWeight.w400,
             ),
             // foregroundColor: textColor ?? AppColors.colorWhite,
@@ -161,11 +161,11 @@ class AppButton {
                         text: text,
                         textAlign: TextAlign.center,
                         color: disabled
-                            ? AppColors.colorGrey
+                            ? (textColor ?? AppColors.colorPrimary).withOpacity(.4)
                             : (textColor ?? AppColors.colorWhite),
-                        fontSize: fontSize ?? 10.sp,
+                        fontSize: fontSize ?? 12.sp,
 
-                        fontWeight: fontWeight ?? FontWeight.w400,
+                        fontWeight: fontWeight ?? FontWeight.w600,
                         // style: Theme.of(context).textTheme.titleLarge,
                       ),
                       if (suffixIcon != null) ...[
@@ -211,7 +211,7 @@ class AppButton {
                     ? AppColors.colorGrey
                     : textColor ?? Theme.of(context).primaryColor,
                 fontSize: fontSize ?? 14.sp,
-                fontFamily: AppTheme.geist,
+                fontFamily: AppTheme.opensans,
                 fontWeight: fontWeight ?? FontWeight.w400,
               ),
               foregroundColor: borderColor != null

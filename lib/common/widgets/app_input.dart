@@ -129,7 +129,7 @@ class _AppTextFieldState extends State<AppTextField> {
                       color: widget.labelColor ?? AppColors.colorBlack,
                       fontSize: widget.labelSize ?? 12.sp,
                       fontWeight: FontWeight.w400,
-                      fontFamily: AppTheme.geist,
+                      fontFamily: AppTheme.opensans,
                     ),
                     children: widget.isRequired
                         ? [
@@ -175,7 +175,7 @@ class _AppTextFieldState extends State<AppTextField> {
           style: TextStyle(
             color: AppColors.colorBlack,
             fontSize: 14.sp,
-            fontFamily: AppTheme.geist,
+            fontFamily: AppTheme.opensans,
             fontWeight: FontWeight.w400,
             height: 1.9.h,
           ),
@@ -190,7 +190,7 @@ class _AppTextFieldState extends State<AppTextField> {
             errorMaxLines: 3,
             errorStyle: TextStyle(
               color: Theme.of(context).colorScheme.error,
-              fontFamily: AppTheme.geist,
+              fontFamily: AppTheme.opensans,
               fontWeight: FontWeight.bold,
               fontSize: 12.sp,
             ),
@@ -203,7 +203,7 @@ class _AppTextFieldState extends State<AppTextField> {
               color: AppColors.hintGrey,
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              fontFamily: AppTheme.geist,
+              fontFamily: AppTheme.opensans,
             ),
             enabled: widget.enabled,
             border: _controller.text.isEmpty

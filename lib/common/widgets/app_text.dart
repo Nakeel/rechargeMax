@@ -62,7 +62,7 @@ class TextView extends StatelessWidget {
               fontWeight: fontWeight,
               fontSize: fontSize ?? 16.sp,
               fontStyle: fontStyle,
-              fontFamily: fontFamily ?? AppTheme.geist,
+              fontFamily: fontFamily ?? AppTheme.opensans,
               letterSpacing: letterSpacing,
               height: lineHeight,
             ),

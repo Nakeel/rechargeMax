@@ -49,7 +49,7 @@ class DialogUtils {
               Center(
                 child: TextView(
                   text: title,
-                  fontFamily: AppTheme.geist,
+                  fontFamily: AppTheme.opensans,
                   color: AppColors.colorOffBlack,
                   textAlign: TextAlign.center,
                   fontSize: 24,

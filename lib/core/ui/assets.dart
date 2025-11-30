@@ -11,5 +11,14 @@ class Assets {
   static const navigationArrow = 'assets/newSvg/navigation_arrow.svg';
   static const greyInfoOutlined = 'assets/newSvg/grey_info_outlined.svg';
 
+  static const String appLogo = 'assets/images/logo.png';
+  static const String logoBg = 'assets/images/bg.png';
+  static const String logoSvg = 'assets/svg/logo.svg';
+
+  // Onboarding Assets
+  static const String onboardingMagnifier = 'assets/images/on1.png';
+  static const String onboardingWheel = 'assets/images/on2.png';
+  static const String onboardingTrophy = 'assets/images/on3.png';
+
   Assets._();
 }

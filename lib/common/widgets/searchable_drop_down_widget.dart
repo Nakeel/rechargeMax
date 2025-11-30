@@ -127,7 +127,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
                       color: AppColors.colorBlack,
                       fontSize: labelSize?? 12.sp,
                       fontWeight: FontWeight.w400,
-                      fontFamily: AppTheme.geist,
+                      fontFamily: AppTheme.opensans,
                     ),
                     children: isRequired
                         ? [
@@ -206,7 +206,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
         errorMaxLines: 3,
         errorStyle: TextStyle(
           color: Theme.of(context).colorScheme.error,
-          fontFamily: AppTheme.geist,
+          fontFamily: AppTheme.opensans,
           fontWeight: FontWeight.bold,
           fontSize: 12.sp,
         ),
@@ -219,7 +219,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
           color: AppColors.hintGrey,
           fontSize: 12.sp,
           fontWeight: FontWeight.w400,
-          fontFamily: AppTheme.geist,
+          fontFamily: AppTheme.opensans,
         ),
         enabled: enabled,
         border:  OutlineInputBorder(
@@ -292,7 +292,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
               errorMaxLines: 3,
               errorStyle: TextStyle(
                 color: Theme.of(context).colorScheme.error,
-                fontFamily: AppTheme.geist,
+                fontFamily: AppTheme.opensans,
                 fontWeight: FontWeight.bold,
                 fontSize: 12.sp,
               ),
@@ -305,7 +305,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
                 color: AppColors.hintGrey,
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w400,
-                fontFamily: AppTheme.geist,
+                fontFamily: AppTheme.opensans,
               ),
               enabled: enabled,
               border:  OutlineInputBorder(
@@ -417,7 +417,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
             errorMaxLines: 3,
             errorStyle: TextStyle(
               color: Theme.of(context).colorScheme.error,
-              fontFamily: AppTheme.geist,
+              fontFamily: AppTheme.opensans,
               fontWeight: FontWeight.bold,
               fontSize: 12.sp,
             ),
@@ -430,7 +430,7 @@ class SearchableCustomDropdownWidget<T> extends StatelessWidget {
               color: AppColors.hintGrey,
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              fontFamily: AppTheme.geist,
+              fontFamily: AppTheme.opensans,
             ),
             enabled: enabled,
             border:  OutlineInputBorder(

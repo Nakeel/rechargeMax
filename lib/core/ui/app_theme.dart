@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'colors.dart';
 
 class AppTheme {
-  static String geist = 'Geist';
+  static String opensans = 'OpenSans';
   static String roboto = 'Roboto';
 
   static ThemeData theme(BuildContext context) => ThemeData(
@@ -27,14 +27,14 @@ class AppTheme {
             color: AppColors.colorBlack,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
-            fontFamily: AppTheme.geist,
+            fontFamily: AppTheme.opensans,
           ),
           iconTheme: const IconThemeData(
             color: AppColors.colorBlack,
           ),
           elevation: 0,
         ),
-        fontFamily: AppTheme.geist,
+        fontFamily: AppTheme.opensans,
         dividerTheme: DividerThemeData(
             color: AppColors.neutralSwatch[100], thickness: 1, space: 0),
         scaffoldBackgroundColor: AppColors.colorWhite,

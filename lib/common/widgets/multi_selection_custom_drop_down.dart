@@ -124,7 +124,7 @@ class MultiSelectionDropdownWidget<T> extends StatelessWidget {
               color: AppColors.colorGrey,
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              fontFamily: AppTheme.geist,
+              fontFamily: AppTheme.opensans,
             )
           ),
         ),

@@ -5,6 +5,7 @@ class AppColors {
   static const colorOffWhite = Color(0xffF8F8F8);
   static const colorBlack = Color(0xff0C0C0C);
   static const black100 = Color(0xff212529);
+  static const black200 = Color(0xff111827);
   static const colorPrimary = Color(0xff1E88E5);
   static const deepGreen = Color(0xff4F6642);
   static const lightGreen = Color(0xffF2FFE6);
@@ -59,6 +60,7 @@ class AppColors {
   static Color itemGrey = const Color(0XFFEFF4ED);
   static Color colorGrey = const Color(0XFF646668);
   static Color hintGrey = const Color(0XFFB2B9B5);
+  static Color naturalGrey = const Color(0XFFD0D0D0);
   static Color descTextGrey = const Color(0XFF848688);
   static Color colorTextFieldBorder = const Color(0XFF4F6642);
   static Color colorTextFieldFocus = const Color(0XFFF4F6F8);

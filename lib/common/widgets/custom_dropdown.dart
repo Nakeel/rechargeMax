@@ -70,7 +70,7 @@ class CustomDropDown extends StatelessWidget {
                       color: AppColors.colorBlack,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w400,
-                      fontFamily: AppTheme.geist,
+                      fontFamily: AppTheme.opensans,
                     ),
                     children: isRequired
                         ? [
@@ -120,7 +120,7 @@ class CustomDropDown extends StatelessWidget {
                             color: AppColors.colorGrey,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w400,
-                            fontFamily: AppTheme.geist,
+                            fontFamily: AppTheme.opensans,
                           )),
               icon: Icon(
                 Icons.keyboard_arrow_down,
@@ -140,7 +140,7 @@ class CustomDropDown extends StatelessWidget {
                               TextStyle(
                                 color: AppColors.colorBlack,
                                 fontSize: 14.sp,
-                                fontFamily: AppTheme.geist,
+                                fontFamily: AppTheme.opensans,
                                 fontWeight: FontWeight.w400,
                                 height: 1.9.h,
                               )),
