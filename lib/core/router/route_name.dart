@@ -11,7 +11,8 @@ class AppRoutes {
   static const String signinRoute = '/signin';
   static const String homeRoute = '/home';
   static const String rechargeRoute = '/recharge';
-  static const String transactionsRoute = '/transactions';
+  static const String transactionsRoute = '/wallet';
+  static const String profileRoute = '/profile';
   static const String returnSigninRoute = '/return-signin';
   static const String signupRoute = '/signup';
   static const String otpVerificationRoute = '/otp-verification';

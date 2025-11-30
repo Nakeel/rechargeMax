@@ -10,7 +10,7 @@ import 'package:recharge_max/features/auth/presentation/widgets/numeric_keypad.d
 import 'package:recharge_max/common/widgets/app_button.dart';
 
 class PhoneEntryScreen extends StatefulWidget {
-  const PhoneEntryScreen({Key? key}) : super(key: key);
+  const PhoneEntryScreen({super.key});
 
   @override
   State<PhoneEntryScreen> createState() => _PhoneEntryScreenState();

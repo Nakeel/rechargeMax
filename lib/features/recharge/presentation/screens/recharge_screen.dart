@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recharge_max/core/ui/colors.dart';
+import 'package:go_router/go_router.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/network_provider_selector.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/payment_method_selector.dart';
 
@@ -150,7 +151,7 @@ class _RechargeScreenState extends State<RechargeScreen> {
       backgroundColor: Colors.white,
       elevation: 0,
       leading: GestureDetector(
-        onTap: () => Navigator.pop(context),
+        onTap: () => context.pop(),
         child: Icon(
           Icons.arrow_back,
           color: AppColors.colorBlack,

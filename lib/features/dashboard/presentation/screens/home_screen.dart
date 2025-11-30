@@ -10,123 +10,73 @@ import 'package:recharge_max/features/dashboard/presentation/widgets/quick_actio
 import 'package:recharge_max/features/dashboard/presentation/widgets/jackpot_card.dart';
 import 'package:recharge_max/features/dashboard/presentation/widgets/recent_winners_section.dart';
 import 'package:recharge_max/features/dashboard/presentation/widgets/loyalty_tier_section.dart';
-import 'package:recharge_max/features/dashboard/presentation/widgets/bottom_nav_bar.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  int _selectedNavIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(
-        children: [
-          SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Header
-                _buildHeader(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Header
+            _buildHeader(),
 
-                SizedBox(height: 24.h),
+            SizedBox(height: 24.h),
 
-                // Greeting Section
-                _buildGreeting(),
+            // Greeting Section
+            _buildGreeting(),
 
-                SizedBox(height: 24.h),
+            SizedBox(height: 24.h),
 
-                // Quick Recharge Card
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: QuickRechargeCard(
-                    onTap: () {
-                      context.go(AppRoutes.rechargeRoute);
-                    },
-                  ),
-                ),
-
-                SizedBox(height: 24.h),
-
-                // Quick Action Buttons
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: _buildQuickActions(),
-                ),
-
-                SizedBox(height: 32.h),
-
-                // Today's Jackpot
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: const JackpotCard(),
-                ),
-
-                SizedBox(height: 32.h),
-
-                // Recent Winners
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: const RecentWinnersSection(),
-                ),
-
-                SizedBox(height: 32.h),
-
-                // Loyalty Tier
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: const LoyaltyTierSection(),
-                ),
-
-                SizedBox(height: 100.h), // Space for bottom nav
-              ],
+            // Quick Recharge Card
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: QuickRechargeCard(
+                onTap: () {
+                  context.go(AppRoutes.rechargeRoute);
+                },
+              ),
             ),
-          ),
 
-          // Bottom Navigation
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: BottomNavBar(
-              selectedIndex: _selectedNavIndex,
-              onItemSelected: (index) {
-                setState(() {
-                  _selectedNavIndex = index;
-                });
+            SizedBox(height: 24.h),
 
-                // Navigate based on selected index
-                switch (index) {
-                  case 0:
-                    // Home - already on home screen
-                    break;
-                  case 1:
-                    // Recharge
-                    context.go(AppRoutes.rechargeRoute);
-                    break;
-                  case 2:
-                    // Draw
-                    context.go(AppRoutes.spinWheelRoute);
-                    break;
-                  case 3:
-                    // Wallet (Transactions)
-                    context.go(AppRoutes.transactionsRoute);
-                    break;
-                  case 4:
-                    // Profile
-                    // TODO: Navigate to profile screen when available
-                    break;
-                }
-              },
+            // Quick Action Buttons
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: _buildQuickActions(context),
             ),
-          ),
-        ],
+
+            SizedBox(height: 32.h),
+
+            // Today's Jackpot
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: const JackpotCard(),
+            ),
+
+            SizedBox(height: 32.h),
+
+            // Recent Winners
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: const RecentWinnersSection(),
+            ),
+
+            SizedBox(height: 32.h),
+
+            // Loyalty Tier
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: const LoyaltyTierSection(),
+            ),
+
+            SizedBox(height: 32.h),
+          ],
+        ),
       ),
     );
   }
@@ -221,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildQuickActions() {
+  Widget _buildQuickActions(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
