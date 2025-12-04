@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recharge_max/core/ui/app_theme.dart';
 import 'package:recharge_max/core/ui/colors.dart';
 
 /// A simple, flexible AppBar widget for standard screen layouts.
@@ -25,7 +26,7 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.showBackButton = true,
     this.onBackPressed,
     this.actions,
-    this.elevation = 0,
+    this.elevation = 2,
     this.titleFontSize,
   }) : super(key: key);
 
