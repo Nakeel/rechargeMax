@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recharge_max/core/ui/colors.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recharge_max/common/widgets/app_input.dart';
+import 'package:recharge_max/common/widgets/app_button.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/airtime_data_tabs.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/quick_amount_selector.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/entries_info_banner.dart';
@@ -94,26 +95,10 @@ class _RechargeScreenState extends State<RechargeScreen> {
                 onMethodSelected: (method) {},
               ),
               SizedBox(height: 24.h),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.colorPrimary,
-                    padding: EdgeInsets.symmetric(vertical: 14.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
-                    ),
-                  ),
-                  child: Text(
-                    'Recharge Now',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
+              AppButton.fill(
+                context: context,
+                text: 'Recharge Now',
+                onPressed: () {},
               ),
             ],
           ),
