@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:recharge_max/core/ui/colors.dart';
-import 'package:go_router/go_router.dart';
 import 'package:recharge_max/common/widgets/app_input.dart';
 import 'package:recharge_max/common/widgets/app_button.dart';
+import 'package:recharge_max/common/widgets/simple_app_bar.dart';
 import 'package:recharge_max/core/utils/phone_number_formatter.dart';
 import 'package:recharge_max/core/utils/currency_formatter.dart';
 import 'package:recharge_max/core/utils/form_validator.dart';
@@ -35,7 +35,22 @@ class _RechargeScreenState extends State<RechargeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: _buildAppBar(),
+      appBar: SimpleAppBar(
+        title: 'Recharge',
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: 16.w),
+            child: GestureDetector(
+              onTap: () {},
+              child: Icon(
+                Icons.history,
+                color: AppColors.colorBlack,
+                size: 24.sp,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
@@ -64,6 +79,7 @@ class _RechargeScreenState extends State<RechargeScreen> {
                 keyboardType: TextInputType.phone,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
+                  // PhoneNumberInputFormatter(),
                   LengthLimitingTextInputFormatter(11),
                 ],
                 validator: AppFormValidator.validatePhonenumber,
@@ -138,43 +154,6 @@ class _RechargeScreenState extends State<RechargeScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  PreferredSizeWidget _buildAppBar() {
-    return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: GestureDetector(
-        onTap: () => context.pop(),
-        child: Icon(
-          Icons.arrow_back,
-          color: AppColors.colorBlack,
-          size: 24.sp,
-        ),
-      ),
-      title: Text(
-        'Recharge',
-        style: TextStyle(
-          color: AppColors.colorBlack,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
-      centerTitle: false,
-      actions: [
-        Padding(
-          padding: EdgeInsets.only(right: 16.w),
-          child: GestureDetector(
-            onTap: () {},
-            child: Icon(
-              Icons.history,
-              color: AppColors.colorBlack,
-              size: 24.sp,
-            ),
-          ),
-        ),
-      ],
     );
   }
 
