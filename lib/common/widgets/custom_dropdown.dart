@@ -19,12 +19,12 @@ class CustomDropDown extends StatelessWidget {
     this.hasNoBorder = false,
     this.isEnabled = true,
     this.selectedItemBuilder,
-    this.iconEnabledColor,
+    this.iconEnabledColor = const Color(0xFF1C1C1C),
     this.hintStyle,
     this.textStyle,
     this.iconSize = 20,
     this.containerBgColor,
-    this.borderRadius = 10,
+    this.borderRadius = 14,
     this.isValidated = false,
     this.hasBorderLine = true,
     this.isOutlineIcon = false,
@@ -97,14 +97,12 @@ class CustomDropDown extends StatelessWidget {
           decoration: hasNoBorder
               ? null
               : BoxDecoration(
-                  color: containerBgColor ?? Colors.white,
+                  color: containerBgColor ?? Color(0xFFF4F4F4),
                   borderRadius: BorderRadius.circular(borderRadius!),
                   border: hasBorderLine
                       ? Border.all(
-                          width: .5,
-                          color: isValidated
-                              ? const Color(0xFF444648)
-                              : AppColors.green250,
+                          width: .9,
+                          color: const Color(0xFFC7C7C7),
                         )
                       : null,
                 ),

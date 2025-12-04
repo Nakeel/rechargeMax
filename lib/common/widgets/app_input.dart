@@ -194,7 +194,7 @@ class _AppTextFieldState extends State<AppTextField> {
               fontWeight: FontWeight.bold,
               fontSize: 12.sp,
             ),
-            fillColor: widget.fillColor ?? AppColors.dividerGreen,
+            fillColor: widget.fillColor ?? Color(0xFFF4F4F4),
             filled: widget.hasFilled,
             contentPadding: widget.contentPadding ??
                 const EdgeInsets.fromLTRB(16, 12, 16, 12).r,
@@ -209,47 +209,47 @@ class _AppTextFieldState extends State<AppTextField> {
             border: _controller.text.isEmpty
                 ? OutlineInputBorder(
                     borderRadius:
-                        widget.borderRadius ?? BorderRadius.circular(8).r,
+                        widget.borderRadius ?? BorderRadius.circular(10).r,
                     borderSide: BorderSide(
-                      color: widget.borderColor ?? AppColors.colorPrimary,
+                      color: widget.borderColor ?? Color(0xFFC7C7C7),
                       width: widget.borderWidth ?? .1,
                     ),
                   )
                 : OutlineInputBorder(
                     borderRadius:
-                        widget.borderRadius ?? BorderRadius.circular(4).r,
+                        widget.borderRadius ?? BorderRadius.circular(10).r,
                     borderSide: BorderSide.none,
                   ),
             focusedBorder: _focusNode.hasFocus
                 ? OutlineInputBorder(
                     borderRadius:
-                        widget.borderRadius ?? BorderRadius.circular(8).r,
+                        widget.borderRadius ?? BorderRadius.circular(10).r,
                     borderSide: BorderSide(
                       color: widget.borderColor ?? AppColors.colorPrimary,
-                      width: widget.borderWidth ?? .5,
+                      width: widget.borderWidth ?? .6,
                     ),
                   )
                 : OutlineInputBorder(
                     borderRadius:
-                        widget.borderRadius ?? BorderRadius.circular(8).r,
+                        widget.borderRadius ?? BorderRadius.circular(10).r,
                     borderSide: BorderSide.none,
                   ),
             errorBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(8).r,
+              borderRadius: widget.borderRadius ?? BorderRadius.circular(10).r,
               borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.error,
                 width: .5,
               ),
             ),
             disabledBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(8).r,
-              borderSide: widget.enabled ?BorderSide(
-                color: widget.borderColor ?? AppColors.colorTextFieldBorder,
-                width: widget.borderWidth ?? (_controller.text.isEmpty ? 1 : 0),
-              ): BorderSide.none,
+              borderRadius: widget.borderRadius ?? BorderRadius.circular(10).r,
+              borderSide: BorderSide(
+                color: widget.borderColor ?? Color(0xFFC7C7C7),
+                width: widget.borderWidth ?? (_controller.text.isEmpty ? .6 : 0),
+              ),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(8).r,
+              borderRadius: widget.borderRadius ?? BorderRadius.circular(10).r,
               borderSide: BorderSide(
                 color: Theme.of(context).colorScheme.error,
                 width: 1.w,
@@ -280,9 +280,9 @@ class _AppTextFieldState extends State<AppTextField> {
                         icon: const Icon(Icons.visibility_outlined),
                       )),
             enabledBorder: OutlineInputBorder(
-              borderRadius: widget.borderRadius ?? BorderRadius.circular(8).r,
+              borderRadius: widget.borderRadius ?? BorderRadius.circular(10).r,
               borderSide: BorderSide(
-                color: widget.borderColor ?? AppColors.green250,
+                color: widget.borderColor ?? Color(0xFFC7C7C7),
                 // AppColors.colorTextFieldBorder,
                 width: widget.borderWidth ?? (_controller.text.isEmpty ? 1 : 0),
               ),

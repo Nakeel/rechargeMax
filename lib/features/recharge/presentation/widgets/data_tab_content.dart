@@ -61,112 +61,111 @@ class _DataTabContentState extends State<DataTabContent> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.colorWhite,
-              borderRadius: BorderRadius.circular(14),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildSectionLabel('Select Network Provider'),
-                SizedBox(height: 12.h),
-                NetworkProviderSelector(
-                  selectedProvider: _selectedProvider,
-                  onProviderSelected: (provider) {
-                    setState(() => _selectedProvider = provider);
-                  },
-                ),
-                SizedBox(height: 24.h),
-                _buildSectionLabel('Select Data Package'),
-                SizedBox(height: 12.h),
-                CustomDropDown(
-                  selectedItem: _selectedDataPackage,
-                  dropDownList: _dataPackages,
-                  hintText: 'Choose a data package',
-                  onValueChanged: (value) {
-                    setState(() {
-                      _selectedDataPackage = value;
-                      // Extract amount from package (e.g., "1GB - ₦200" -> "200")
-                      final amount = value.split('₦').last.trim();
-                      _amountController.text = amount;
-                    });
-                  },
-                  containerBgColor: Colors.white,
-                  borderRadius: 8,
-                  hintStyle: TextStyle(
-                    color: AppColors.descTextGrey,
-                    fontSize: 14.sp,
+      child: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: 20).copyWith(bottom: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.colorWhite,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildSectionLabel('Select Network Provider'),
+                  SizedBox(height: 12.h),
+                  NetworkProviderSelector(
+                    selectedProvider: _selectedProvider,
+                    onProviderSelected: (provider) {
+                      setState(() => _selectedProvider = provider);
+                    },
                   ),
-                  textStyle: TextStyle(
-                    color: AppColors.colorBlack,
-                    fontSize: 14.sp,
+                  SizedBox(height: 24.h),
+                  _buildSectionLabel('Select Data Package'),
+                  SizedBox(height: 12.h),
+                  CustomDropDown(
+                    selectedItem: _selectedDataPackage,
+                    dropDownList: _dataPackages,
+                    hintText: 'Choose a data package',
+                    onValueChanged: (value) {
+                      setState(() {
+                        _selectedDataPackage = value;
+                        // Extract amount from package (e.g., "1GB - ₦200" -> "200")
+                        final amount = value.split('₦').last.trim();
+                        _amountController.text = amount;
+                      });
+                    },
                   ),
-                ),
-                SizedBox(height: 24.h),
-                _buildSectionLabel('Phone Number'),
-                SizedBox(height: 8.h),
-                AppTextField(
-                  controller: _phoneController,
-                  hint: 'e.g 08023456789',
-                  keyboardType: TextInputType.phone,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    LengthLimitingTextInputFormatter(11),
-                  ],
-                  validator: AppFormValidator.validatePhonenumber,
-                  removeBottomSpace: true,
-                ),
-                SizedBox(height: 24.h),
-                _buildSectionLabel('Data Price'),
-                SizedBox(height: 12.h),
-                AppTextField(
-                  controller: _amountController,
-                  hint: 'or enter amount ₦',
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    AmountInputFormatter(locale: 'en_NG', symbol: '₦'),
-                  ],
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return null;
-                    final cleaned = value.replaceAll(RegExp(r'[^0-9]'), '');
-                    if (cleaned.isEmpty) return 'Please enter an amount';
-                    final amount = double.tryParse(cleaned);
-                    if (amount == null) return 'Invalid amount';
-                    if (amount < 200) return 'Minimum amount is ₦200';
-                    if (amount > 100000) return 'Maximum amount is ₦100,000';
-                    return null;
-                  },
-                  removeBottomSpace: true,
-                ),
-                SizedBox(height: 20.h),
-                EntriesInfoBanner(),
-              ],
+                  SizedBox(height: 24.h),
+                  _buildSectionLabel('Phone Number'),
+                  SizedBox(height: 8.h),
+                  AppTextField(
+                    controller: _phoneController,
+                    hint: 'e.g 08023456789',
+                    keyboardType: TextInputType.phone,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
+                    validator: AppFormValidator.validatePhonenumber,
+                    removeBottomSpace: true,
+                  ),
+                  SizedBox(height: 24.h),
+                  _buildSectionLabel('Data Price'),
+                  SizedBox(height: 12.h),
+                  AppTextField(
+                    controller: _amountController,
+                    hint: 'Data Amount ₦',
+                    keyboardType: TextInputType.number,
+                    enabled: false,
+                    inputFormatters: [
+                      AmountInputFormatter(locale: 'en_NG', symbol: '₦'),
+                    ],
+                    validator: (value) {
+                      if (value == null || value.isEmpty) return null;
+                      final cleaned = value.replaceAll(RegExp(r'[^0-9]'), '');
+                      if (cleaned.isEmpty) return 'Please enter an amount';
+                      final amount = double.tryParse(cleaned);
+                      if (amount == null) return 'Invalid amount';
+                      if (amount < 200) return 'Minimum amount is ₦200';
+                      if (amount > 100000) return 'Maximum amount is ₦100,000';
+                      return null;
+                    },
+                    removeBottomSpace: true,
+                  ),
+                  SizedBox(height: 20.h),
+                  EntriesInfoBanner(),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 24.h),
-          Container(
-            decoration: BoxDecoration(
-              color: AppColors.colorWhite,
-              borderRadius: BorderRadius.circular(14),
+            SizedBox(height: 24.h),
+
+            if(_selectedProvider!=null && _selectedDataPackage!=null && _phoneController.text.isNotEmpty)
+            Container(
+              decoration: BoxDecoration(
+                color: AppColors.colorWhite,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: PaymentMethodSelector(
+                onMethodSelected: widget.onPaymentMethodSelected ?? (_) {},
+              ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            child: PaymentMethodSelector(
-              onMethodSelected: widget.onPaymentMethodSelected ?? (_) {},
+            SizedBox(height: 30.h),
+            AppButton.fill(
+              context: context,
+              size: Size(double.infinity, 54.h),
+              text: 'Recharge Now',
+              backgroundColor: AppColors.colorPrimary,
+              textColor: AppColors.colorWhite,
+              disabled: _selectedProvider==null || _phoneController.text.isEmpty || _selectedDataPackage==null,
+              onPressed: () {},
             ),
-          ),
-          SizedBox(height: 30.h),
-          AppButton.fill(
-            context: context,
-            size: Size(double.infinity, 54.h),
-            text: 'Recharge Now',
-            onPressed: () {},
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
