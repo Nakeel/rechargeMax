@@ -60,15 +60,28 @@ abstract class PhoneNumberFormatter {
   }
 
   /// Formats a phone number for display in XXX XXX XXXX format.
-  /// Returns the formatted string or the original input if less than 10 digits.
+  /// Progressively adds spaces as user types (after 3rd and 6th digits).
   ///
   /// Examples:
+  ///   "9" → "9"
+  ///   "90" → "90"
+  ///   "903" → "903"
+  ///   "9034" → "903 4"
+  ///   "903432" → "903 432"
   ///   "9034328443" → "903 432 8443"
-  ///   "903432" → "903432" (less than 10 digits, no formatting)
   static String formatPhoneNumberForDisplay(String phoneNumber) {
-    if (phoneNumber.length < 10) {
-      return phoneNumber;
+    if (phoneNumber.isEmpty) return phoneNumber;
+
+    final buffer = StringBuffer();
+
+    for (int i = 0; i < phoneNumber.length; i++) {
+      // Add space after 3rd and 6th digits
+      if (i == 3 || i == 6) {
+        buffer.write(' ');
+      }
+      buffer.write(phoneNumber[i]);
     }
-    return '${phoneNumber.substring(0, 3)} ${phoneNumber.substring(3, 6)} ${phoneNumber.substring(6, 10)}';
+
+    return buffer.toString();
   }
 }
