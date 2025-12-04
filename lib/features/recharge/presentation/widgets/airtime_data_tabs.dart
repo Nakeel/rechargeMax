@@ -4,7 +4,8 @@ import 'package:recharge_max/core/ui/colors.dart';
 
 /// Tab selector for switching between Airtime and Data recharge options.
 ///
-/// Displays two tabs: "Airtime" and "Data" with animated underline indicator.
+/// Displays pill-shaped tabs: "Airtime" and "Data" with smooth transitions.
+/// Selected tab has blue background with white text.
 class AirtimeDataTabsWidget extends StatelessWidget {
   final int selectedTab;
   final Function(int) onTabChanged;
@@ -17,70 +18,56 @@ class AirtimeDataTabsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: GestureDetector(
+    return Container(
+      padding: EdgeInsets.all(6.w),
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        children: [
+          _buildTabButton(
+            label: 'Airtime',
+            isSelected: selectedTab == 0,
             onTap: () => onTabChanged(0),
-            child: Column(
-              children: [
-                Text(
-                  'Airtime',
-                  style: TextStyle(
-                    color: selectedTab == 0
-                        ? AppColors.colorPrimary
-                        : AppColors.descTextGrey,
-                    fontSize: 14.sp,
-                    fontWeight:
-                        selectedTab == 0 ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Container(
-                  height: 3.h,
-                  decoration: BoxDecoration(
-                    color: selectedTab == 0
-                        ? AppColors.colorPrimary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(2.r),
-                  ),
-                ),
-              ],
-            ),
           ),
-        ),
-        SizedBox(width: 24.w),
-        Expanded(
-          child: GestureDetector(
+          SizedBox(width: 12.w),
+          _buildTabButton(
+            label: 'Data',
+            isSelected: selectedTab == 1,
             onTap: () => onTabChanged(1),
-            child: Column(
-              children: [
-                Text(
-                  'Data',
-                  style: TextStyle(
-                    color: selectedTab == 1
-                        ? AppColors.colorPrimary
-                        : AppColors.descTextGrey,
-                    fontSize: 14.sp,
-                    fontWeight:
-                        selectedTab == 1 ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Container(
-                  height: 3.h,
-                  decoration: BoxDecoration(
-                    color: selectedTab == 1
-                        ? AppColors.colorPrimary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(2.r),
-                  ),
-                ),
-              ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTabButton({
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+  }) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 16.w),
+          decoration: BoxDecoration(
+            color: isSelected ? AppColors.colorPrimary : Colors.transparent,
+            borderRadius: BorderRadius.circular(10.r),
+          ),
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: isSelected ? Colors.white : AppColors.colorBlack,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
