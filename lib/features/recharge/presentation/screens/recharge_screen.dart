@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recharge_max/core/ui/colors.dart';
 import 'package:go_router/go_router.dart';
+import 'package:recharge_max/common/widgets/app_input.dart';
+import 'package:recharge_max/features/recharge/presentation/widgets/airtime_data_tabs.dart';
+import 'package:recharge_max/features/recharge/presentation/widgets/quick_amount_selector.dart';
+import 'package:recharge_max/features/recharge/presentation/widgets/entries_info_banner.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/network_provider_selector.dart';
 import 'package:recharge_max/features/recharge/presentation/widgets/payment_method_selector.dart';
 
@@ -34,63 +37,47 @@ class _RechargeScreenState extends State<RechargeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Airtime/Data Tabs
-              _buildTabs(),
-
-              SizedBox(height: 24.h),
-
-              // Network Provider Selection
-              Text(
-                'Select Network Provider',
-                style: TextStyle(
-                  color: AppColors.colorBlack,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                ),
+              AirtimeDataTabsWidget(
+                selectedTab: _selectedTab,
+                onTabChanged: (tab) => setState(() => _selectedTab = tab),
               ),
+              SizedBox(height: 24.h),
+              _buildSectionLabel('Select Network Provider'),
               SizedBox(height: 12.h),
               NetworkProviderSelector(
                 selectedProvider: _selectedProvider,
                 onProviderSelected: (provider) {
+                  setState(() => _selectedProvider = provider);
+                },
+              ),
+              SizedBox(height: 24.h),
+              _buildSectionLabel('Phone Number'),
+              SizedBox(height: 8.h),
+              AppTextField(
+                controller: _phoneController,
+                hint: 'e.g 08023456789',
+                keyboardType: TextInputType.phone,
+                removeBottomSpace: true,
+              ),
+              SizedBox(height: 24.h),
+              _buildSectionLabel('Select Amount'),
+              SizedBox(height: 12.h),
+              QuickAmountSelector(
+                selectedAmount: _selectedAmount,
+                onAmountSelected: (amount) {
                   setState(() {
-                    _selectedProvider = provider;
+                    _selectedAmount = amount;
+                    _amountController.text = amount.toString();
                   });
                 },
               ),
-
-              SizedBox(height: 24.h),
-
-              // Phone Number Input
-              Text(
-                'Phone Number',
-                style: TextStyle(
-                  color: AppColors.colorBlack,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              SizedBox(height: 8.h),
-              _buildPhoneInput(),
-
-              SizedBox(height: 24.h),
-
-              // Amount Selection
-              Text(
-                'Select Amount',
-                style: TextStyle(
-                  color: AppColors.colorBlack,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
               SizedBox(height: 12.h),
-              _buildAmountButtons(),
-
-              SizedBox(height: 12.h),
-
-              // Custom Amount Input
-              _buildCustomAmountInput(),
-
+              AppTextField(
+                controller: _amountController,
+                hint: 'or enter amount ₦',
+                keyboardType: TextInputType.number,
+                removeBottomSpace: true,
+              ),
               SizedBox(height: 12.h),
               Text(
                 'Minimum amount: ₦200',
@@ -100,24 +87,13 @@ class _RechargeScreenState extends State<RechargeScreen> {
                   fontWeight: FontWeight.w400,
                 ),
               ),
-
               SizedBox(height: 20.h),
-
-              // Entries Info (only on second variant)
-              _buildEntriesInfo(),
-
+              EntriesInfoBanner(),
               SizedBox(height: 24.h),
-
-              // Payment Method
               PaymentMethodSelector(
-                onMethodSelected: (method) {
-                  // Handle payment method selection
-                },
+                onMethodSelected: (method) {},
               ),
-
               SizedBox(height: 24.h),
-
-              // Recharge Now Button
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -183,196 +159,13 @@ class _RechargeScreenState extends State<RechargeScreen> {
     );
   }
 
-  Widget _buildTabs() {
-    return Row(
-      children: [
-        Expanded(
-          child: GestureDetector(
-            onTap: () => setState(() => _selectedTab = 0),
-            child: Column(
-              children: [
-                Text(
-                  'Airtime',
-                  style: TextStyle(
-                    color: _selectedTab == 0
-                        ? AppColors.colorPrimary
-                        : AppColors.descTextGrey,
-                    fontSize: 14.sp,
-                    fontWeight:
-                        _selectedTab == 0 ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Container(
-                  height: 3.h,
-                  decoration: BoxDecoration(
-                    color: _selectedTab == 0
-                        ? AppColors.colorPrimary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(2.r),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(width: 24.w),
-        Expanded(
-          child: GestureDetector(
-            onTap: () => setState(() => _selectedTab = 1),
-            child: Column(
-              children: [
-                Text(
-                  'Data',
-                  style: TextStyle(
-                    color: _selectedTab == 1
-                        ? AppColors.colorPrimary
-                        : AppColors.descTextGrey,
-                    fontSize: 14.sp,
-                    fontWeight:
-                        _selectedTab == 1 ? FontWeight.w600 : FontWeight.w400,
-                  ),
-                ),
-                SizedBox(height: 8.h),
-                Container(
-                  height: 3.h,
-                  decoration: BoxDecoration(
-                    color: _selectedTab == 1
-                        ? AppColors.colorPrimary
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(2.r),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPhoneInput() {
-    return TextField(
-      controller: _phoneController,
-      decoration: InputDecoration(
-        hintText: 'e.g 08023456789',
-        hintStyle: TextStyle(
-          color: AppColors.descTextGrey,
-          fontSize: 14.sp,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.naturalGrey,
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.naturalGrey,
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.colorPrimary,
-            width: 1,
-          ),
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      ),
-    );
-  }
-
-  Widget _buildAmountButtons() {
-    return Wrap(
-      spacing: 12.w,
-      runSpacing: 12.h,
-      children: _quickAmounts.map((amount) {
-        final isSelected = _selectedAmount == amount;
-        return GestureDetector(
-          onTap: () {
-            setState(() {
-              _selectedAmount = amount;
-              _amountController.text = amount.toString();
-            });
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
-            decoration: BoxDecoration(
-              color: isSelected ? AppColors.colorPrimary.withOpacity(0.1) : Colors.white,
-              border: Border.all(
-                color: isSelected ? AppColors.colorPrimary : AppColors.naturalGrey,
-                width: isSelected ? 2 : 1,
-              ),
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Text(
-              '₦$amount',
-              style: TextStyle(
-                color: isSelected ? AppColors.colorPrimary : AppColors.colorBlack,
-                fontSize: 13.sp,
-                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildCustomAmountInput() {
-    return TextField(
-      controller: _amountController,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        hintText: 'or enter amount ₦',
-        hintStyle: TextStyle(
-          color: AppColors.descTextGrey,
-          fontSize: 14.sp,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.naturalGrey,
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.naturalGrey,
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(
-            color: AppColors.colorPrimary,
-            width: 1,
-          ),
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 12.h),
-      ),
-    );
-  }
-
-  Widget _buildEntriesInfo() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
-      decoration: BoxDecoration(
-        color: AppColors.colorPrimary.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(8.r),
-      ),
-      child: Text(
-        "You'll earn 2 entries into today's draw, pls a spin on the price wheel!",
-        style: TextStyle(
-          color: AppColors.colorPrimary,
-          fontSize: 12.sp,
-          fontWeight: FontWeight.w500,
-        ),
+  Widget _buildSectionLabel(String label) {
+    return Text(
+      label,
+      style: TextStyle(
+        color: AppColors.colorBlack,
+        fontSize: 14.sp,
+        fontWeight: FontWeight.w600,
       ),
     );
   }
