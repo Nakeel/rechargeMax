@@ -8,6 +8,7 @@ import 'package:recharge_max/core/ui/assets.dart';
 import 'package:recharge_max/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:recharge_max/features/auth/presentation/widgets/numeric_keypad.dart';
 import 'package:recharge_max/common/widgets/app_button.dart';
+import 'package:recharge_max/core/utils/phone_number_formatter.dart';
 
 class PhoneEntryScreen extends StatefulWidget {
   const PhoneEntryScreen({super.key});
@@ -139,7 +140,7 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
                     child: Text(
                       state.phoneNumber.isEmpty
                           ? 'Phone number'
-                          : state.phoneNumber,
+                          : PhoneNumberFormatter.formatPhoneNumberForDisplay(state.phoneNumber),
                       style: TextStyle(
                         color: state.phoneNumber.isEmpty
                             ? AppColors.lightGrey

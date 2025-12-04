@@ -58,4 +58,17 @@ abstract class PhoneNumberFormatter {
     // Return cleaned number if no prefix to strip
     return cleaned;
   }
+
+  /// Formats a phone number for display in XXX XXX XXXX format.
+  /// Returns the formatted string or the original input if less than 10 digits.
+  ///
+  /// Examples:
+  ///   "9034328443" → "903 432 8443"
+  ///   "903432" → "903432" (less than 10 digits, no formatting)
+  static String formatPhoneNumberForDisplay(String phoneNumber) {
+    if (phoneNumber.length < 10) {
+      return phoneNumber;
+    }
+    return '${phoneNumber.substring(0, 3)} ${phoneNumber.substring(3, 6)} ${phoneNumber.substring(6, 10)}';
+  }
 }
