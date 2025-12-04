@@ -27,5 +27,11 @@ class Assets {
   static const String rightBg = 'assets/images/leftBg.png';
   static const String leftBg = 'assets/images/rightBg.png';
 
+  // Network Assets
+  static const String mtn = 'assets/images/mtn.png';
+  static const String glo = 'assets/images/glo.png';
+  static const String airtel = 'assets/images/airtel.png';
+  static const String nineMobile = 'assets/images/9mobile.png';
+
   Assets._();
 }

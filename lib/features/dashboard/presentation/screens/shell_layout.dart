@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:recharge_max/core/router/route_name.dart';
+import 'package:recharge_max/core/ui/colors.dart';
 import 'package:recharge_max/features/dashboard/presentation/widgets/bottom_nav_bar.dart';
 
 class ShellLayout extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ShellLayoutState extends State<ShellLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.grey250,
       body: widget.navigationShell,
       bottomNavigationBar: BottomNavBar(
         selectedIndex: widget.navigationShell.currentIndex,

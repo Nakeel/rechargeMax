@@ -39,8 +39,8 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? GestureDetector(
               onTap: onBackPressed ?? () => context.pop(),
               child: Icon(
-                Icons.arrow_back,
-                color: textColor,
+                Icons.arrow_back_ios,
+                color: AppColors.colorPrimary,
                 size: 24.sp,
               ),
             )
@@ -53,7 +53,7 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontWeight: FontWeight.w600,
         ),
       ),
-      centerTitle: false,
+      centerTitle: true,
       actions: actions,
     );
   }

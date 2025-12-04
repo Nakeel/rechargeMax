@@ -46,7 +46,7 @@ class _ReadMoreTextWidgetState extends State<ReadMoreTextWidget> {
 
     String displayedText = _isExpanded
         ? widget.content
-        : Util.getTruncatedContent(widget.content, percent: widget.truncatePercentage);
+        : StringUtilities.getTruncatedContent(widget.content, percent: widget.truncatePercentage);
 
     return RichText(
       text: TextSpan(

@@ -16,10 +16,6 @@ class RechargeScreen extends StatefulWidget {
 
 class _RechargeScreenState extends State<RechargeScreen> {
   int _selectedTab = 0; // 0: Airtime, 1: Data
-  String? _selectedProvider;
-  int? _selectedAmount;
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _amountController = TextEditingController();
   late PageController _pageController;
 
   @override
@@ -31,8 +27,9 @@ class _RechargeScreenState extends State<RechargeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.grey250,
       appBar: SimpleAppBar(
+        showBackButton: false,
         title: 'Recharge',
         actions: [
           Padding(
@@ -62,54 +59,12 @@ class _RechargeScreenState extends State<RechargeScreen> {
               controller: _pageController,
               onPageChanged: _handlePageChange,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  child: AirtimeTabContent(
-                    selectedProvider: _selectedProvider,
-                    onProviderSelected: (provider) {
-                      setState(() => _selectedProvider = provider);
-                    },
-                    phoneController: _phoneController,
-                    amountController: _amountController,
-                    selectedAmount: _selectedAmount,
-                    onAmountSelected: (amount) {
-                      setState(() {
-                        _selectedAmount = amount;
-                        _amountController.text = amount.toString();
-                      });
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                  child: DataTabContent(
-                    selectedProvider: _selectedProvider,
-                    onProviderSelected: (provider) {
-                      setState(() => _selectedProvider = provider);
-                    },
-                    phoneController: _phoneController,
-                    amountController: _amountController,
-                    selectedAmount: _selectedAmount,
-                    onAmountSelected: (amount) {
-                      setState(() {
-                        _selectedAmount = amount;
-                        _amountController.text = amount.toString();
-                      });
-                    },
-                  ),
-                ),
+                AirtimeTabContent(),
+                DataTabContent(),
               ],
             ),
           ),
-          Padding(
-            padding: EdgeInsets.all(16.w),
-            child: AppButton.fill(
-              context: context,
-              size: Size(double.infinity, 54.h),
-              text: 'Recharge Now',
-              onPressed: () {},
-            ),
-          ),
+
         ],
       ),
     );
@@ -133,8 +88,6 @@ class _RechargeScreenState extends State<RechargeScreen> {
   @override
   void dispose() {
     _pageController.dispose();
-    _phoneController.dispose();
-    _amountController.dispose();
     super.dispose();
   }
 }

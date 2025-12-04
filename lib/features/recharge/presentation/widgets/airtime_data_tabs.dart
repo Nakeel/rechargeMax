@@ -21,7 +21,7 @@ class AirtimeDataTabsWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(6.w),
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: AppColors.colorWhite,
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Row(

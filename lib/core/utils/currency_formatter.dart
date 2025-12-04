@@ -250,7 +250,7 @@ class AmountInputWithDecimalFormatter extends TextInputFormatter {
   }
 }
 
-class PhoneNumberFormatter extends TextInputFormatter {
+class PhoneNumberInputFormatter extends TextInputFormatter {
   static String unformat(String value) {
     return value.replaceAll(RegExp(r'\D'), '');
   }
