@@ -355,6 +355,312 @@ sealed class MyState {}
 
 ---
 
+## Widget Reusability & Component Architecture
+
+### Core Principle: DRY (Don't Repeat Yourself)
+
+**CRITICAL RULE:** Every screen and widget file MUST NOT exceed **200 lines of code**. Violating this rule indicates poor abstraction and requires refactoring into smaller components.
+
+### Widget Reusability Strategy
+
+#### Rule 1: Always Reuse Existing Widgets from `lib/common/widgets/`
+
+Before creating ANY new widget:
+1. **Search** `lib/common/widgets/` for an existing widget that matches your needs
+2. **Check if it exists:**
+   - If exact match exists → Use it directly
+   - If close match exists → Consider adding parameters/flags instead of creating duplicates
+   - If widget doesn't exist → Create it in `lib/common/widgets/`
+
+**Example of Reuse with Parameters:**
+```dart
+// Instead of creating RechargeButton, NetworkButton, WalletButton...
+// Reuse AppButton with customizable properties:
+AppButton(
+  label: 'Recharge Now',
+  backgroundColor: AppColors.colorPrimary,
+  onPressed: () {},
+  isOutlined: false,  // Flag for style variation
+)
+```
+
+#### Rule 2: When to Create Reusable Widgets
+
+Create a new widget in `lib/common/widgets/` when:
+1. The widget will be used in **2 or more screens/features**
+2. The widget encapsulates **meaningful UI logic** (not just styling)
+3. The widget is **self-contained** and doesn't depend on feature-specific logic
+4. The widget can be described with a **single clear purpose**
+
+#### Rule 3: Widget Naming in Common Folder
+
+- **Display/Layout widgets**: `{feature}_card_widget.dart`, `{item}_tile_widget.dart`
+- **Input widgets**: `app_{type}_field.dart`, `custom_{component}.dart`
+- **Buttons/Actions**: `app_button.dart`, `action_{name}_button.dart`
+- **Containers/Backgrounds**: `{style}_container_widget.dart`, `{theme}_background.dart`
+- **List/Grid items**: `product_item_widget.dart`, `category_item_widget.dart`
+
+**Current Common Widgets Library:**
+Located in `lib/common/widgets/` with 60+ reusable components.
+
+See `## Common Development Tasks` → `### Implementing a New Screen` for integration patterns.
+
+#### Rule 4: Handling UI Variations
+
+**DO NOT create separate widgets for minor UI differences.** Instead, add parameters/flags:
+
+❌ **WRONG - Creates duplicate widgets:**
+```dart
+// lib/common/widgets/jackpot_card.dart
+class JackpotCard extends StatelessWidget { ... }
+
+// lib/common/widgets/prize_card.dart  <- DUPLICATE!
+class PrizeCard extends StatelessWidget { ... }
+```
+
+✅ **RIGHT - Use parameters:**
+```dart
+// lib/common/widgets/reward_card_widget.dart
+class RewardCard extends StatelessWidget {
+  final String title;
+  final String amount;
+  final Color? backgroundColor;
+  final bool showCountdown;
+  final String? countdownTime;
+  final VoidCallback onTap;
+
+  const RewardCard({
+    required this.title,
+    required this.amount,
+    required this.onTap,
+    this.backgroundColor,
+    this.showCountdown = false,
+    this.countdownTime,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          Text(title),
+          Text(amount),
+          if (showCountdown)
+            Text(countdownTime ?? '00:00'),
+        ],
+      ),
+    );
+  }
+}
+```
+
+### Code Organization Rules
+
+#### Rule 5: Maximum File Size - 200 Lines
+
+**Every Dart file MUST NOT exceed 200 lines** (excluding imports and comments).
+
+If a file exceeds 200 lines:
+1. **Break it into smaller widgets** - Extract build methods into separate StatelessWidget classes
+2. **Create helper widgets** - Move complex sections to dedicated widgets
+3. **Move to common folder** - If reusable, place in `lib/common/widgets/`
+4. **Create separate files** - Use multiple well-organized files instead of one monolithic file
+
+**Line counting guidelines:**
+- Includes: imports, class declarations, method bodies
+- Excludes: blank lines (reasonable), documentation comments (but not excessive)
+
+**Example of Proper Abstraction:**
+
+❌ **WRONG - 250+ lines, everything in one file:**
+```dart
+// lib/features/recharge/presentation/screens/recharge_screen.dart
+class RechargeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(...),  // 20 lines
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildNetworkSelector(...),    // 40 lines
+            _buildAmountSelector(...),     // 60 lines
+            _buildPaymentOptions(...),     // 50 lines
+            _buildSummarySection(...),     // 40 lines
+            _buildConfirmButton(...),      // 30 lines
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNetworkSelector(...) { ... }    // 40 lines
+  Widget _buildAmountSelector(...) { ... }     // 60 lines
+  Widget _buildPaymentOptions(...) { ... }     // 50 lines
+  Widget _buildSummarySection(...) { ... }     // 40 lines
+  Widget _buildConfirmButton(...) { ... }      // 30 lines
+}
+```
+
+✅ **RIGHT - Well-organized, each file under 200 lines:**
+
+```
+lib/features/recharge/presentation/
+├── screens/
+│   └── recharge_screen.dart              (120 lines)
+└── widgets/
+    ├── network_selector_widget.dart      (65 lines)
+    ├── amount_selector_widget.dart       (75 lines)
+    ├── payment_options_widget.dart       (70 lines)
+    ├── summary_section_widget.dart       (60 lines)
+    └── confirm_button_widget.dart        (45 lines)
+```
+
+**recharge_screen.dart (120 lines):**
+```dart
+class RechargeScreen extends StatefulWidget {
+  @override
+  State<RechargeScreen> createState() => _RechargeScreenState();
+}
+
+class _RechargeScreenState extends State<RechargeScreen> {
+  late RechargeBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = context.read<RechargeBloc>();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Recharge')),
+      body: BlocBuilder<RechargeBloc, RechargeState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.all(16.w),
+              child: Column(
+                children: [
+                  NetworkSelectorWidget(
+                    onNetworkSelected: _bloc.selectNetwork,
+                  ),
+                  SizedBox(height: 20.h),
+                  AmountSelectorWidget(
+                    onAmountSelected: _bloc.selectAmount,
+                  ),
+                  SizedBox(height: 20.h),
+                  PaymentOptionsWidget(
+                    onPaymentMethodSelected: _bloc.selectPayment,
+                  ),
+                  SizedBox(height: 20.h),
+                  SummarySectionWidget(
+                    network: state.selectedNetwork,
+                    amount: state.selectedAmount,
+                  ),
+                  SizedBox(height: 24.h),
+                  ConfirmButtonWidget(
+                    onPressed: _bloc.confirmRecharge,
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+```
+
+#### Rule 6: Widget Structure Best Practices
+
+When creating screens or components, follow this structure:
+
+```dart
+// 1. Imports
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// ... other imports
+
+// 2. Class declaration
+class MyScreen extends StatelessWidget {
+  const MyScreen({Key? key}) : super(key: key);
+
+  // 3. Build method
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: _buildAppBar(),
+      body: _buildBody(),
+    );
+  }
+
+  // 4. Private helper methods (if absolutely necessary)
+  PreferredSizeWidget _buildAppBar() { ... }
+  Widget _buildBody() { ... }
+}
+```
+
+**However, if helper methods are getting large or reusable:**
+- Extract to separate widget classes instead
+- Move to `lib/common/widgets/` if useful elsewhere
+
+#### Rule 7: Feature-Specific Widgets
+
+For widgets that are **feature-specific and not reusable**, create them in:
+```
+lib/features/{feature}/presentation/widgets/
+```
+
+**Example:**
+```
+lib/features/recharge/presentation/widgets/
+├── network_selector_widget.dart
+├── amount_input_widget.dart
+└── payment_method_card.dart
+```
+
+These are scoped to the feature but should still follow the 200-line rule.
+
+#### Rule 8: Identifying Future Reusable Widgets
+
+When creating a feature-specific widget, ask:
+- Could this be used in another feature?
+- Is this a common UI pattern?
+- Would other developers benefit from this?
+
+**If YES:** Create in `lib/common/widgets/` instead.
+
+**Example: During recharge development, if you create `NetworkProviderCard`:**
+- Check: Is this needed elsewhere? (Wallet, Profile settings, etc.)
+- YES → Create as `lib/common/widgets/network_provider_card_widget.dart`
+- NO → Create as `lib/features/recharge/presentation/widgets/network_provider_card.dart`
+
+---
+
+### Refactoring Checklist
+
+When implementing a new screen, ensure:
+
+- [ ] No file exceeds 200 lines of code
+- [ ] Checked `lib/common/widgets/` for reusable components
+- [ ] Reused or extended existing widgets with parameters
+- [ ] Created only truly reusable components in `lib/common/widgets/`
+- [ ] Feature-specific components in `lib/features/{feature}/presentation/widgets/`
+- [ ] All helper methods extracted as separate widget classes if large
+- [ ] Each component has a single, clear responsibility
+- [ ] Code is DRY - no duplicate widgets or repeated patterns
+- [ ] Components are self-documented with clear naming
+- [ ] Used const constructors where possible
+
+---
+
 ## Troubleshooting
 
 ### Build Issues
@@ -510,5 +816,26 @@ recharge_max/
 
 ---
 
-**Last Updated:** 2025-11-13
-**Status:** Ready for Figma design verification and implementation phase
+**Last Updated:** 2025-12-04
+**Status:** Production-ready with strict widget reusability and code organization standards enforced
+
+## Important Implementation Standards
+
+### Non-Negotiable Rules
+
+1. **200-Line Maximum** - No screen or widget file shall exceed 200 lines of code
+2. **Widget Reusability First** - Always check `lib/common/widgets/` before creating new components
+3. **Parameterized Variations** - Use flags/parameters for UI variations instead of duplicate widgets
+4. **DRY Principle** - No repeated widget patterns; extract to reusable components
+5. **Feature-Scoped Widgets** - Feature-specific components in `lib/features/{feature}/presentation/widgets/`
+6. **Common Library First** - Reusable components belong in `lib/common/widgets/`
+
+### Violation Consequences
+
+Failing to follow these rules will require:
+- Code review and mandatory refactoring
+- Decomposition into smaller components
+- Widget consolidation and parameterization
+- Re-organization into proper folder structure
+
+**These standards ensure:** maintainability, scalability, code reusability, and consistent architecture across the project.
