@@ -18,7 +18,11 @@ class AppColors {
   static const green300 = Color(0xffFAFFF9);
   static const green250 = Color(0xffF2F2F2);
   static const amber300 = Color(0xffEDAE49);
+  static const orange800 = Color(0xffFFA500);
+  static const orange600 = Color(0xffFFCC08);
   static const colorOffBlack = Color(0xff242628);
+
+  static const colorSilver = Color(0xFF696969);
   static const unselectedColorBlack = Color(0xff646668);
   static const neutralSwatch = {
     50: Color(0xffF8FAFF),
@@ -57,6 +61,8 @@ class AppColors {
   static Color grey300 = const Color(0XFF889491);
   static Color grey400 = const Color(0XFFEAEAEA);
   static Color lightGrey = const Color(0xffFAFAFA);
+  static Color grey250 = const Color(0xffF7F7F7);
+  static Color grey350 = const Color(0xffAAAAAC);
   static Color itemGrey = const Color(0XFFEFF4ED);
   static Color colorGrey = const Color(0XFF646668);
   static Color hintGrey = const Color(0XFFB2B9B5);

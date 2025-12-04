@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.grey250,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,11 @@ class HomeScreen extends StatelessWidget {
             // Loyalty Tier
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: const LoyaltyTierSection(),
+              child: LoyaltyTierCard(
+                config: LoyaltyTierConfig.silver,
+                progress: 0.2,
+                progressLabel: "10 Points to next tier",
+              ),
             ),
 
             SizedBox(height: 32.h),

@@ -72,11 +72,11 @@ class JackpotCard extends StatelessWidget {
               text: "₦5,000,000",
               fontSize: 42.sp,
               outlineWidth: 4,
-              shadowBlur: 25,
+              shadowBlur: 20,
             ),
           ),
 
-          SizedBox(height: 12.h),
+          SizedBox(height: 6.h),
 
           // --- CHANCE + PROGRESS BAR ---
           Container(
@@ -92,8 +92,8 @@ class JackpotCard extends StatelessWidget {
                   "Chance of winning 1/10",
                   style: TextStyle(
                     color: Colors.black.withOpacity(.9),
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
+                    fontSize: 9.sp,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
                 SizedBox(width: 12.w),
@@ -102,10 +102,10 @@ class JackpotCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20.r),
                     child: LinearProgressIndicator(
                       value: 0.4,
-                      minHeight: 8.h,
-                      backgroundColor: const Color(0xFFF5D68E),
+                      minHeight: 6.h,
+                      backgroundColor: AppColors.colorBlack.withOpacity(.12),
                       valueColor:
-                          AlwaysStoppedAnimation<Color>(Colors.blueAccent.shade100),
+                          AlwaysStoppedAnimation<Color>(AppColors.colorPrimary),
                     ),
                   ),
                 ),
@@ -113,7 +113,7 @@ class JackpotCard extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 16.h),
+          SizedBox(height: 8.h),
 
           // --- ENTRIES + BUTTON ---
           Row(
@@ -130,7 +130,7 @@ class JackpotCard extends StatelessWidget {
                   "Your Entries: 5",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -150,8 +150,8 @@ class JackpotCard extends StatelessWidget {
                       "Get More Entries",
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),

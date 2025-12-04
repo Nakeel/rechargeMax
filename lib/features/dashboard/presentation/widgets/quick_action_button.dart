@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:recharge_max/core/ui/colors.dart';
 class QuickActionButton extends StatelessWidget {
   final String icon;
   final String label;
@@ -19,7 +20,7 @@ class QuickActionButton extends StatelessWidget {
     // 28% of screen width → dynamic square. Adjust to 0.25–0.32 as desired.
 
     return Material(
-      color: const Color(0xFFF5F5F5),
+      color:  AppColors.colorWhite,
       borderRadius: BorderRadius.circular(12.r),
       child: InkWell(
         borderRadius: BorderRadius.circular(12.r),

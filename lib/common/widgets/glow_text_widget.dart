@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recharge_max/core/ui/app_theme.dart';
 
 class GlowTextWidget extends StatelessWidget {
   final String text;
@@ -9,6 +10,7 @@ class GlowTextWidget extends StatelessWidget {
   final double outlineWidth;
   final double shadowBlur;
   final Color shadowColor;
+  // final String fontFamily;
 
   const GlowTextWidget({
     super.key,
@@ -19,6 +21,7 @@ class GlowTextWidget extends StatelessWidget {
     this.outlineColor = Colors.white,
     this.outlineWidth = 6,
     this.shadowBlur = 20,
+    // this.fontFamily =  'Roboto' ,
     this.shadowColor = const Color(0xFFFFF59D), // Yellow glow
   });
 
@@ -32,6 +35,7 @@ class GlowTextWidget extends StatelessWidget {
           style: TextStyle(
             fontSize: fontSize,
             fontWeight: fontWeight,
+            // fontFamily: fontFamily,
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = outlineWidth

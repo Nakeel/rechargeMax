@@ -13,6 +13,9 @@ class Assets {
 
   static const String appLogo = 'assets/images/logo.png';
   static const String logoBg = 'assets/images/bg.png';
+  static const String silverTier = 'assets/images/tier-silver.png';
+  static const String goldTier = 'assets/images/tier-silver.png';
+  static const String bronzeTier = 'assets/images/tier-silver.png';
   static const String logoSvg = 'assets/svg/logo.svg';
 
   // Onboarding Assets
